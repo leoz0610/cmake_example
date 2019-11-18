@@ -2,6 +2,12 @@
 
 #include <iostream>
 
+#ifdef USE_MYMATH
+#include "mysqrt.h"
+#else
+#include <cmath>
+#endif
+
 int main(int argc, char** argv) {
     if (argc < 2) {
         // report version
@@ -11,5 +17,11 @@ int main(int argc, char** argv) {
         return 1;
     }
     const double inputValue = std::stod(argv[1]);
+    #ifdef USE_MYMATH
+    const double outputValue = mysqrt(inputValue);
+    #else
+    const double outputValue = sqrt(inputValue);
+    #endif
+    std::cout << "output: " << outputValue << std::endl;
     return 0;
 }
